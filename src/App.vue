@@ -2,7 +2,7 @@
   <div id="app">
     <b-container>
       <b-tabs>
-        <b-tab title="Boilerplate">
+        <b-tab title="Boilerplate" active>
           <b-row>
             <b-col cols="8">
               <StoveItem :store="store"/>
@@ -17,7 +17,7 @@
           <RecipesEditor :store="store"/>
         </b-tab>
         <b-tab title="Склад" disabled></b-tab>
-        <b-tab title="Ингредиенты" active>
+        <b-tab title="Ингредиенты" >
           <IngredientsEditor :store="store"/>
         </b-tab>
       </b-tabs>

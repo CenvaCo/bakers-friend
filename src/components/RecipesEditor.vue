@@ -29,7 +29,7 @@
             </b-input-group>
           </div>
         </b-form-group>
-        <b-row class="new-ingradient" v-if="options.length">
+        <b-row class="new-ingradient" v-if="options.length && this.state.name">
           <b-col cols="1">
             <b-btn v-if="!isTempEmpty"  v-on:click="addIngredient" slot="prepend">+</b-btn>
           </b-col>
@@ -67,7 +67,7 @@ export default {
   },
   computed: {
     isTempEmpty: function () {
-      return _.isEmpty(this.temp)
+      return _.isEmpty(this.temp) 
     },
     recipes: function() {
       return this.temp.name
