@@ -29,17 +29,13 @@
             </b-input-group>
           </div>
         </b-form-group>
-        <b-row class="new-ingradient" v-if="options.length && this.state.name">
-          <b-col cols="1">
+        <b-input-group class="new-ingradient" v-if="options.length && this.state.name">
             <b-btn v-if="!isTempEmpty"  v-on:click="addIngredient" slot="prepend">+</b-btn>
-          </b-col>
-          <b-col  cols="9">
+            <b-col cols="10">
             <b-form-select v-model="temp.id" :options="options"/>
-          </b-col>
-          <b-col cols="2">
+            </b-col>
             <b-form-input  v-model="temp.quant"></b-form-input>
-          </b-col>
-        </b-row>
+        </b-input-group>
       </b-col>
     </b-row>
   </div>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h5>Stove</h5>
+    <h5>Печь</h5>
     <b-row>
       <b-col
         v-for="item in store.state.stove"
