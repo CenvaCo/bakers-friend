@@ -89,7 +89,7 @@ class Store {
   }
 
   stoveIt(recipe) {
-    const stoveItem = this.state.stove.find(i => i.recipe == recipe);
+    const stoveItem = this.state.stove.find(i => i.recipe.name === recipe.name);
     if (!stoveItem) {
       this.state.stove.push({
         count: 1,
@@ -120,6 +120,7 @@ class Store {
       ingredients: []
     })
     this.updateBase64Url();
+    return this.state.recipes[this.state.recipes.length-1];
   }
   addRecipeIngr(recipe, ingr) {
     recipe.ingredients.push(Object.assign({}, ingr));

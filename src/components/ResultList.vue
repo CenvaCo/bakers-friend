@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h5>ResultList</h5>
+    <h5>Использованные инградиенты</h5>
 
     <b-table striped hover responsive :items="list" :fields="fields"></b-table>
   </div>

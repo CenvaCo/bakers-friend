@@ -19,13 +19,13 @@
 </template>
 
 <script>
+
 export default {
   name: "StoveItem",
   props: {
     store: Object
   },
   created: function() {
-    console.log(this.store);
   },
   computed: {
   

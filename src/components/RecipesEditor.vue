@@ -1,16 +1,17 @@
 <template>
   <div>
-    <h5>Recipeslist</h5>
+    <Recipeslist :store="store" :handler="select"/>
+
     <b-row>
-      <b-col cols="4">
-        <ul>
+      <b-col v-if="!isHidden">
+        <!-- <ul>
           <li v-for="item in store.state.recipes" :key="item.id">
             <span v-on:click="select(item)">{{item.name}}</span>
           </li>
-        </ul>
+        </ul>-->
         <b-button v-on:click="addRecipe">+</b-button>
       </b-col>
-      <b-col cols="8">
+      <b-col cols="12">
         <b-form-input v-model="state.name"></b-form-input>
         <b-form-group
           label="Ингредиенты"
@@ -30,11 +31,11 @@
           </div>
         </b-form-group>
         <b-input-group class="new-ingradient" v-if="options.length && this.state.name">
-            <b-btn v-if="!isTempEmpty"  v-on:click="addIngredient" slot="prepend">+</b-btn>
-            <b-col cols="10">
+          <b-btn v-if="!isTempEmpty" v-on:click="addIngredient" slot="prepend">+</b-btn>
+          <b-col cols="10">
             <b-form-select v-model="temp.id" :options="options"/>
-            </b-col>
-            <b-form-input  v-model="temp.quant"></b-form-input>
+          </b-col>
+          <b-form-input v-model="temp.quant"></b-form-input>
         </b-input-group>
       </b-col>
     </b-row>
@@ -42,28 +43,31 @@
 </template>
 
 <script>
-import _ from 'lodash';
+import _ from "lodash";
+import Recipeslist from "./Recipeslist.vue";
 export default {
   name: "RecipesEditor",
   props: {
     store: Object
   },
+  components: {
+    Recipeslist
+  },
   data: function() {
     return {
+      isHidden: false,
       state: {
         name: "",
         ingredients: []
       },
       selected: {},
-      temp: {
- 
-      },
+      temp: {},
       ingredientsById: _.keyBy(this.store.state.ingredients, "id")
     };
   },
   computed: {
-    isTempEmpty: function () {
-      return _.isEmpty(this.temp) 
+    isTempEmpty: function() {
+      return _.isEmpty(this.temp);
     },
     recipes: function() {
       return this.temp.name
@@ -72,23 +76,23 @@ export default {
     },
     options: function() {
       let ids = this.state.ingredients.map(item => item.id);
-      this.ingredientsById =  _.keyBy(this.store.state.ingredients, "id");
+      this.ingredientsById = _.keyBy(this.store.state.ingredients, "id");
       let result = this.store.state.ingredients
         .map(item => ({
           text: item.name,
           value: item.id
         }))
         .filter(item => !ids.includes(item.value));
-        if (ids.includes(this.temp.id)) this.temp = {};
+      if (ids.includes(this.temp.id)) this.temp = {};
       return result;
     }
   },
   methods: {
     select: function(item) {
       this.state = item;
-      this.state.ingredients.forEach(item => {
-        return item;
-      });
+      // this.state.ingredients.forEach(item => {
+      //   return item;
+      // });
     },
     addIngredient: function() {
       this.store.addRecipeIngr(this.state, this.temp);
@@ -104,11 +108,11 @@ export default {
           .pop()
       );
       let recipe = { id: ++id, name: "change me!", ingredients: [] };
-      this.store.addRecipe(recipe);
-      this.state = Object.assign({}, recipe);
+      // this.store.addRecipe(recipe);
+      
+      this.state = this.store.addRecipe(recipe);
     }
-  },
-  components: {}
+  }
 };
 </script>
 
@@ -120,6 +124,9 @@ export default {
 }
 .ingr-item {
   border: 1px dotted black;
+  margin: 10px 0;
+}
+.col {
   margin: 10px 0;
 }
 </style>

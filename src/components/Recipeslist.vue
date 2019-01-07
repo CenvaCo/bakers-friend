@@ -1,35 +1,32 @@
 <template>
   <div>
-    <h5>Recipeslist</h5>
-    <ul>
-      <li v-for="item in store.state.recipes" :key="item.id">
-        <span v-on:click="stoveIt(item)">{{item.name}}</span>
-      </li>
-    </ul>
-    <!-- <TreeView :model="tree" /> -->
+    <b-navbar toggleable="md" type="dark" variant="info">
+      <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+      <b-navbar-brand href="#">рецепты</b-navbar-brand>
+
+      <b-collapse is-nav id="nav_collapse">
+        <b-navbar-nav>
+          <b-nav-item href="#" v-for="item in store.state.recipes" :key="item.id">
+            <span v-on:click="handler(item)">{{item.name}}</span>
+          </b-nav-item>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
   </div>
 </template>
 
 <script>
-import TreeView from "./TreeView.vue";
 
 export default {
   name: "Recipeslist",
   props: {
-    store: Object
+    store: Object,
+    handler: Function
   },
   components: {
-    TreeView
   },
   data: function() {
-    return {
-     
-    };
-  },
-  methods: {
-    stoveIt: function(item) {
-      this.store.stoveIt(item);
-    }
+    return {};
   }
 };
 </script>

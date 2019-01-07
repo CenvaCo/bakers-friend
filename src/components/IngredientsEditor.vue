@@ -1,9 +1,12 @@
 <template>
   <div>
-    <h5>Ingredients Editor</h5>
+    <h5>Ingredients Editor
+
+       <b-btn  v-on:click="listen" slot="prepend">listen</b-btn>
+    </h5>
     <b-row>
-      <b-col>
-        <div v-for="(item) in store.state.ingredients" :key="item.id">
+      <b-col >
+        <div v-for="(item) in store.state.ingredients" :key="item.id" class="item">
             <!-- {{item.id}}|{{index}} -->
           <b-input-group>
             <b-btn v-on:click="remove(item)" slot="prepend">-</b-btn>
@@ -22,6 +25,9 @@
 </template>
 
 <script>
+import Speech from "./../Speech.js";
+const speech = new Speech();
+
 export default {
   name: "IngredientsEditor",
   props: {
@@ -36,6 +42,10 @@ export default {
   },
   computed: {},
   methods: {
+    listen: function () {
+      console.log('listen')
+      speech.listen();
+    },
     remove: function(item) {
         this.store.removeIngredient(item)
     },
@@ -51,5 +61,8 @@ export default {
 <style scoped>
 .add-section {
     margin-top: 20px;
+}
+.item {
+  margin: 10px 0;
 }
 </style>

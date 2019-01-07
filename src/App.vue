@@ -4,20 +4,23 @@
       <b-tabs>
         <b-tab title="Boilerplate" active>
           <b-row>
-            <b-col cols="8">
+            <b-col>
+              <Recipeslist :store="store" :handler="stoveItProvider"/>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col>
               <StoveItem :store="store"/>
               <ResultList :store="store"/>
-            </b-col>
-            <b-col cols="4">
-              <Recipeslist :store="store"/>
             </b-col>
           </b-row>
         </b-tab>
         <b-tab title="Рецептура">
+     
           <RecipesEditor :store="store"/>
         </b-tab>
         <b-tab title="Склад" disabled></b-tab>
-        <b-tab title="Ингредиенты" >
+        <b-tab title="Ингредиенты">
           <IngredientsEditor :store="store"/>
         </b-tab>
       </b-tabs>
@@ -34,6 +37,7 @@ import IngredientsEditor from "./components/IngredientsEditor.vue";
 import Store from "./Store.js";
 
 const store = new Store();
+
 export default {
   name: "app",
   components: {
@@ -47,6 +51,11 @@ export default {
     return {
       store: store
     };
+  },
+  methods: {
+    stoveItProvider: function (item) {
+      this.store.stoveIt(item)
+    }
   }
 };
 </script>
@@ -58,5 +67,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   margin-top: 60px;
+}
+.col {
+  margin: 10px 0;
 }
 </style>
